@@ -4,7 +4,7 @@ import Home from "./Home"
 import Login from "./Login"
 import Register from "./Register"
 import MyProfile from "./MyProfile"
-import PremiumContent from "./PremiumContent"
+// import PremiumContent from "./PremiumContent"
 import { getUser, getToken, setUserSession, resetUserSession } from './service/AuthService'
 import axios from 'axios';
 
@@ -34,7 +34,7 @@ function App() {
     })
   }, []);
 
-  const token = getToken()
+  // const token = getToken()
 
   return (
     <div className="App">
