@@ -33,7 +33,20 @@ async function login(user) {
     // If everything matches, we return user with access token
     const userInfo = {
         username: dynamoUser.username,
-        name: dynamoUser.name
+        name: dynamoUser.name,
+        age: dynamoUser.age,
+        sex: dynamoUser.sex,
+        orientation: dynamoUser.orientation,
+        diet: dynamoUser.diet,
+        drinks: dynamoUser.drinks,
+        drugs: dynamoUser.drugs,
+        education: dynamoUser.education,
+        ethnicity: dynamoUser.ethnicity,
+        income: dynamoUser.income,
+        location: dynamoUser.location,
+        pets: dynamoUser.pets,
+        smokes: dynamoUser.smokes,
+        speaks: dynamoUser.speaks
     }
 
     const token = auth.generateToken(userInfo)
