@@ -7,6 +7,7 @@ import MyProfile from "./MyProfile"
 // import PremiumContent from "./PremiumContent"
 import { getUser, getToken, setUserSession, resetUserSession } from './service/AuthService'
 import axios from 'axios';
+import NotFound from './NotFound';
 
 const verifyTokenUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/verify"
 
@@ -53,6 +54,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             {/* <Route path="/premium-content" element={<PremiumContent />} /> */}
             <Route path="/my-profile" element={<MyProfile />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </BrowserRouter>

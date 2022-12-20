@@ -34,6 +34,7 @@ const Login = (props) => {
             password: password
         }
         axios.post(loginUrl, requestBody).then((response) => {
+            console.log(response.data.user)
             setUserSession(response.data.user, response.data.token);
             // props.history.push('/premium-content');
             navigate('/');
