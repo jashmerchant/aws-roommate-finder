@@ -38,12 +38,12 @@ async function register(userInfo) {
         })
     }
 
-    const encryptedPasswd = bcrypt.hashSync(password.trim(), 10);
+    // const encryptedPasswd = bcrypt.hashSync(password.trim(), 10);
     const user = {
         name: name,
         email: email,
         username: username.toLowerCase().trim(),
-        password: encryptedPasswd,
+        password: password.trim(),
         age: age,
         sex: sex,
         orientation: orientation,

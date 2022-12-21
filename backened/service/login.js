@@ -24,9 +24,9 @@ async function login(user) {
         })
     }
 
-    if (!bcrypt.compareSync(password, dynamoUser.password)) {
+    if (password !== dynamoUser.password) {
         return util.buildResponse(403, {
-            message: 'Password incorrect'
+            message: `Password incorrect ${password} ${dynamoUser.password}`
         })
     }
 
