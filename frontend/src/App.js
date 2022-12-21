@@ -10,7 +10,8 @@ import axios from 'axios';
 import NotFound from './NotFound';
 import Friends from './Friends';
 
-const verifyTokenUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/verify"
+// const verifyTokenUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/verify"
+const verifyTokenUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/verify"
 
 function App() {
   const [isAuthenticating, setAuthenticating] = useState(true);

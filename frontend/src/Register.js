@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from './service/AuthService'
 import axios from 'axios';
 
-const registerUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/register"
+// const registerUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/register"
+const registerUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/register"
 
 const Register = () => {
     const navigate = useNavigate();

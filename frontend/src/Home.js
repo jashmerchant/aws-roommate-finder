@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { getUser, resetUserSession, getUsers } from './service/AuthService';
 import axios from 'axios';
 
-const editUserUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/edituser"
+// const editUserUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/edituser"
+const editUserUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/edituser"
 
 const Home = () => {
     const navigate = useNavigate();
@@ -99,7 +100,9 @@ const Home = () => {
                         if (!found) return u
                     }).map((receiver) => {
                         return <li key={receiver.username} style={{ display: "flex" }}>
-                            <div>{receiver.username}</div>
+                            <div>
+                                {receiver.username}
+                            </div>
                             {checkSent(receiver.friendList) ?
                                 <button disabled>Sent</button> :
                                 checkReceived(receiver.friendList) ?

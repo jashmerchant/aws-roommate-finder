@@ -4,7 +4,8 @@ import { setUserSession } from './service/AuthService';
 import { getUser } from './service/AuthService'
 import axios from 'axios';
 
-const loginUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/login";
+// const loginUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/login";
+const loginUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/login"
 
 const Login = (props) => {
     const navigate = useNavigate();

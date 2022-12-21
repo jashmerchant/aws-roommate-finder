@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from "./service/AuthService";
 import axios from 'axios';
 
-const editUserUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/edituser"
+// const editUserUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/edituser"
+const editUserUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/edituser"
 
 const Friends = () => {
     const navigate = useNavigate();
