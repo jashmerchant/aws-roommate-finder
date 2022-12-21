@@ -46,7 +46,8 @@ async function login(user) {
         location: dynamoUser.location,
         pets: dynamoUser.pets,
         smokes: dynamoUser.smokes,
-        speaks: dynamoUser.speaks
+        speaks: dynamoUser.speaks,
+        friendList: dynamoUser.friendList
     }
 
     const token = auth.generateToken(userInfo)

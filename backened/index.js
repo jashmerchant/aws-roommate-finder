@@ -1,12 +1,14 @@
 const registerService = require('./service/register');
 const loginService = require('./service/login');
 const verifyService = require('./service/verify');
+const edituserService = require('./service/edituser');
 const util = require('./utils/util');
 
 const healthPath = '/health';
 const registerPath = '/register';
 const loginPath = '/login';
 const verifyPath = '/verify';
+const edituserPath = '/edituser'
 
 export const handler = async (event) => {
     console.log('Request event: ', event);
@@ -14,6 +16,11 @@ export const handler = async (event) => {
     switch (true) {
         case event.httpMethod === 'GET' && event.path === healthPath:
             response = util.buildResponse(200);
+            break;
+
+        case event.httpMethod === 'POST' && event.path === edituserPath:
+            const edituserBody = JSON.parse(event.body);
+            response = await edituserService.edituser(edituserBody);
             break;
 
         case event.httpMethod === 'POST' && event.path === registerPath:

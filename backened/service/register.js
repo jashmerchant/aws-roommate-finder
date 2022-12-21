@@ -56,7 +56,8 @@ async function register(userInfo) {
         location: location,
         pets: pets,
         smokes: smokes,
-        speaks: speaks
+        speaks: speaks,
+        friendList: []
     }
 
     const saveUserResponse = await saveUser(user);
@@ -67,7 +68,7 @@ async function register(userInfo) {
     }
 
     return util.buildResponse(200, {
-        username: username
+        username: username,
     })
 }
 

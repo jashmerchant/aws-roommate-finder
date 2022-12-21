@@ -8,6 +8,7 @@ import MyProfile from "./MyProfile"
 import { getUser, getToken, setUserSession, resetUserSession, getUsers } from './service/AuthService'
 import axios from 'axios';
 import NotFound from './NotFound';
+import Friends from './Friends';
 
 const verifyTokenUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/verify"
 
@@ -47,6 +48,7 @@ function App() {
           <Link to="/login">Login</Link>
           {/* <Link to="/premium-content">Premium Content</Link> */}
           <Link to="/my-profile">My Profile</Link>
+          <Link to="/friends">Friends</Link>
         </div>
         <div className="content">
           <Routes>
@@ -55,6 +57,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             {/* <Route path="/premium-content" element={<PremiumContent />} /> */}
             <Route path="/my-profile" element={<MyProfile />} />
+            <Route path="/friends" element={<Friends />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
