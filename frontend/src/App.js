@@ -5,7 +5,7 @@ import Login from "./Login"
 import Register from "./Register"
 import MyProfile from "./MyProfile"
 // import PremiumContent from "./PremiumContent"
-import { getUser, getToken, setUserSession, resetUserSession } from './service/AuthService'
+import { getUser, getToken, setUserSession, resetUserSession, getUsers } from './service/AuthService'
 import axios from 'axios';
 import NotFound from './NotFound';
 
@@ -23,11 +23,12 @@ function App() {
 
     const requestBody = {
       user: getUser(),
-      token: token
+      token: token,
+      scanResult: getUsers()
     }
-
+    console.log(requestBody.scanResult)
     axios.post(verifyTokenUrl, requestBody).then(response => {
-      setUserSession(response.data.user, response.data.token);
+      setUserSession(response.data.user, response.data.token, requestBody.scanResult);
       setAuthenticating(false)
     }).catch((error) => {
       resetUserSession();

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUser, resetUserSession } from './service/AuthService'
+import { getUser, resetUserSession, getUsers } from './service/AuthService'
 
 const Home = () => {
     const navigate = useNavigate();
     const user = getUser();
+    const users = getUsers();
+    // console.log("Users:", users)
     const [searchUser, setUser] = useState('');
     const name = user !== 'undefined' && user ? user.name : '';
 
@@ -35,7 +37,11 @@ const Home = () => {
                     Search Users: <input type="text" value={searchUser} onChange={event => setUser(event.target.value)} />
                     <input type="submit" value="Search" />
                 </form>
-
+                <ul>
+                    {users.filter((u) => u.username !== user.username).map((user) => {
+                        return <div key={user.username} style={{ display: "flex" }}><li>{user.username}</li><button>Add Friend</button></div>
+                    })}
+                </ul>
                 <input type="button" value="Logout" onClick={logoutHandler} />
             </div>
         )

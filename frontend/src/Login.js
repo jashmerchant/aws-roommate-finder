@@ -34,8 +34,8 @@ const Login = (props) => {
             password: password
         }
         axios.post(loginUrl, requestBody).then((response) => {
-            console.log(response.data.user)
-            setUserSession(response.data.user, response.data.token);
+            console.log(response.data.scanResult);
+            setUserSession(response.data.user, response.data.token, response.data.scanResult);
             // props.history.push('/premium-content');
             navigate('/');
             console.log("Logged in")

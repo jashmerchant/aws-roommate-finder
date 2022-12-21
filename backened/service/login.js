@@ -50,9 +50,23 @@ async function login(user) {
     }
 
     const token = auth.generateToken(userInfo)
+
+    const params = {
+        TableName: userTable
+    };
+
+    const scanResults = [];
+    const items = undefined;
+    do {
+        items = await documentClient.scan(params).promise();
+        items.Items.forEach((item) => scanResults.push(item));
+        params.ExclusiveStartKey = items.LastEvaluatedKey;
+    } while (typeof items.LastEvaluatedKey !== "undefined");
+
     const response = {
         user: userInfo,
-        token: token
+        token: token,
+        scanResult: scanResults
     }
 
     return util.buildResponse(200, response);
