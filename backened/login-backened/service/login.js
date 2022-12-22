@@ -24,9 +24,14 @@ async function login(user) {
         })
     }
 
+    // if (!bcrypt.compareSync(password, dynamoUser.password)) {
+    //     return util.buildResponse(403, {
+    //         message: 'Password incorrect'
+    //     })
+    // }
     if (password !== dynamoUser.password) {
         return util.buildResponse(403, {
-            message: 'Password incorrect'
+            message: `Password incorrect`
         })
     }
 
@@ -34,6 +39,7 @@ async function login(user) {
     const userInfo = {
         username: dynamoUser.username,
         name: dynamoUser.name,
+        email: dynamoUser.email,
         age: dynamoUser.age,
         sex: dynamoUser.sex,
         orientation: dynamoUser.orientation,
@@ -51,25 +57,30 @@ async function login(user) {
     }
 
     const token = auth.generateToken(userInfo)
-
+    
     const params = {
         TableName: userTable
     };
 
-    const scanResults = [];
-    const items = undefined;
-    do {
-        items = await documentClient.scan(params).promise();
-        items.Items.forEach((item) => scanResults.push(item));
-        params.ExclusiveStartKey = items.LastEvaluatedKey;
-    } while (typeof items.LastEvaluatedKey !== "undefined");
-    scanResults = scanResults.slice(0, 10)
+    var scanResults = [];
+    
+    var items = undefined;
+    
+    // Fetching all users from db and storing it in scanResults array
+    
+    // do {
+    //     items = await dynamodb.scan(params).promise();
+    //     items.Items.forEach((item) => scanResults.push(item));
+    //     params.ExclusiveStartKey = items.LastEvaluatedKey;
+    // } while (typeof items.LastEvaluatedKey !== "undefined");
+    // console.log(scanResults)
+    // scanResults = scanResults.slice(0, 10)
     const response = {
         user: userInfo,
         token: token,
         scanResult: scanResults
     }
-
+    console.log(response)
     return util.buildResponse(200, response);
 }
 

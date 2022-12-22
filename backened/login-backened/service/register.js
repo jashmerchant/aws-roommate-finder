@@ -25,9 +25,10 @@ async function register(userInfo) {
     const pets = userInfo.pets;
     const smokes = userInfo.smokes;
     const speaks = userInfo.speaks;
+    console.log(userInfo)
     if (!username || !name || !email || !password || !age || !sex || !orientation || !diet || !drinks || !drugs || !education || !ethnicity || !income || !location || !pets || !smokes || !speaks) {
         return util.buildResponse(401, {
-            message: 'All fields required'
+            message: 'All fields are required'
         })
     }
 
@@ -68,7 +69,7 @@ async function register(userInfo) {
     }
 
     return util.buildResponse(200, {
-        username: username,
+        username: username
     })
 }
 

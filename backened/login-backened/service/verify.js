@@ -11,7 +11,6 @@ function verify(requestBody) {
 
     const user = requestBody.user;
     const token = requestBody.token;
-    const scanResult = requestBody.scanResult;
     const verification = auth.verifyToken(user.username, token);
     if (!verification.verified) {
         return util.buildResponse(401, verification);
@@ -21,8 +20,7 @@ function verify(requestBody) {
         verified: true,
         message: 'success',
         user: user,
-        token: token,
-        scanResult: scanResult
+        token: token
     })
 }
 

@@ -15,8 +15,14 @@ async function edituser(userInfo) {
 
     const receiver = await getUser(userInfo.receiver.toLowerCase().trim());
     const sender = await getUser(userInfo.sender.toLowerCase().trim());
-    receiver.friendList.push({ "name": sender.username, "isAccepted": userInfo.isAccepted, "status": "received" })
-    sender.friendList.push({ "name": receiver.username, "isAccepted": userInfo.isAccepted, "status": "sent" })
+  
+        // If Accept or Reject button is clicked
+        receiver.friendList = receiver.friendList.filter((friend)=>friend.name !== sender.username)
+        sender.friendList = sender.friendList.filter((friend)=>friend.name !== receiver.username)
+
+        receiver.friendList.push({ "name": sender.username, "request": userInfo.request, "status": "received" })
+        sender.friendList.push({ "name": receiver.username, "request": userInfo.request, "status": "sent" })
+    
     // const saveSenderResponse = await saveUser(sender, receiver, userInfo.isAccepted, "sent");
     // const saveReceiverResponse = await saveUser(receiver, sender, userInfo.isAccepted, "received");
     const saveReceiverResponse = await saveUser(receiver);
@@ -26,24 +32,22 @@ async function edituser(userInfo) {
             message: 'Server Error'
         })
     }
-
     const params = {
         TableName: userTable
     };
 
     var scanResults = [];
-
+    
     var items = undefined;
-
+    
     do {
         items = await dynamodb.scan(params).promise();
         items.Items.forEach((item) => scanResults.push(item));
         params.ExclusiveStartKey = items.LastEvaluatedKey;
     } while (typeof items.LastEvaluatedKey !== "undefined");
-
+    
 
     return util.buildResponse(200, scanResults);
-
 }
 
 async function getUser(username) {
