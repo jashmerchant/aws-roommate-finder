@@ -13,8 +13,8 @@ code {
 }
 
 .header {
-  margin: 2em 0 2em 2em;
-  padding-bottom: 1em;
+  margin: 2em 2em 1em 2em; 
+  padding-bottom: 1em; 
   border-bottom: 1px solid;
 }
 
@@ -22,14 +22,68 @@ code {
   margin: 0 1em 0 1em;
   font-size: 1.2em;
   text-decoration: none;
+  color: #004aad;
+  
+}
+
+.header a:hover {
+  color: #0a58ca;
+}
+
+.header img {
+  width: 80px;
+  height: 80px;
 }
 
 .content {
   margin-left: 3em;
+  margin-right: 3em;
   font-size: 1.5;
 }
 
 .message {
   color: red;
   font-size: 0.7em;
+}
+
+
+
+/* -------------------*/
+
+.w-80{
+  width: 80%;
+}
+.w-50{
+  width: 50%;
+}
+.w-30{
+  width: 30%;
+}
+.mb-30{
+  margin-bottom: 30px;
+}
+.my-flex{
+  display: flex;
+  margin-bottom: 5em;
+}
+
+.nav-container{
+  display: block;
+}
+.nav-flex{
+  display: flex;
+  justify-content: space-between;
+}
+.nav-items{
+  align-items: center;
+  display: flex;
+}
+.v-flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.w-fit{
+  width: fit-content;
 }

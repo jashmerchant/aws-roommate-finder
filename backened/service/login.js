@@ -26,7 +26,7 @@ async function login(user) {
 
     if (password !== dynamoUser.password) {
         return util.buildResponse(403, {
-            message: `Password incorrect ${password} ${dynamoUser.password}`
+            message: 'Password incorrect'
         })
     }
 
@@ -63,7 +63,7 @@ async function login(user) {
         items.Items.forEach((item) => scanResults.push(item));
         params.ExclusiveStartKey = items.LastEvaluatedKey;
     } while (typeof items.LastEvaluatedKey !== "undefined");
-
+    scanResults = scanResults.slice(0, 10)
     const response = {
         user: userInfo,
         token: token,

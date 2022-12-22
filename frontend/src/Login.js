@@ -52,14 +52,20 @@ const Login = (props) => {
 
     return (
         <div>
-            <form onSubmit={submitHandler}>
-                <h5>Login</h5>
-                username: <input type="text" value={username} onChange={event => setUsername(event.target.value)} /> <br />
-                password: <input type="password" value={password} onChange={event => setPassword(event.target.value)} /> <br />
-                <input type="submit" value="Login" />
-            </form>
-            {errorMessage && <p className='message'>{errorMessage}</p>}
-        </div>
+        <form class="w-80" onSubmit={submitHandler}>
+        <h3 class="mb-30">Login</h3>
+
+            <div class="w-50 mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input placeholder="Enter your username" id="username" type="text" class="form-control" required value={username} onChange={event => setUsername(event.target.value)} /> <br />
+            <label for="password" class="form-label">Password</label>
+            <input placeholder="Enter your password" id="password" type="password" class="form-control" required value={password} onChange={event => setPassword(event.target.value)} /> <br />
+            <input class=" btn btn-primary" type="submit" value="Login" />
+            </div>
+        </form>
+
+          {errorMessage && <p class="message"> {errorMessage} </p> }
+    </div>
     )
 }
 

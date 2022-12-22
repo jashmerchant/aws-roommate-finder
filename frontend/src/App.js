@@ -44,12 +44,19 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div className="header">
-          <Link to="/">Home</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-          {/* <Link to="/premium-content">Premium Content</Link> */}
-          <Link to="/my-profile">My Profile</Link>
-          <Link to="/friends">Friends</Link>
+        <div className="nav-container" >
+        <div className="nav-flex" >
+        <div ><Link to="/"><img src='favicon.png'/></Link></div>
+        <div className="nav-items" >
+        <Link to="/">Home</Link>
+            <Link to="/friends">Friends</Link>
+            <Link to="/my-profile">My Profile</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+            {/* <Link to="/premium-content">Premium Content</Link> */}
+        </div>
+        </div>
+        </div>
         </div>
         <div className="content">
           <Routes>

@@ -32,23 +32,57 @@ const MyProfile = () => {
     if (user) {
         return (
             <div>
-                Name: {name} <br />
-                Username: {username} <br />
-                Email: {email} <br />
-                Age: {age} <br />
-                Sex: {sex} <br />
-                Orientation: {orientation} <br />
-                Diet: {diet} <br />
-                Drinks: {drinks} <br />
-                Drugs: {drugs} <br />
-                Education: {education} <br />
-                Ethnicity: {ethnicity} <br />
-                Income: {income} <br />
-                Location: {location} <br />
-                Pets: {pets} <br />
-                Smokes: {smokes} <br />
-                Speaks: {speaks} <br />
-            </div >
+            <dl class="row">
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">{name}</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">{email}</dd>
+
+                <dt class="col-sm-3">Username</dt>
+                <dd class="col-sm-9">{username}</dd>
+
+                <dt class="col-sm-3">Age</dt>
+                <dd class="col-sm-9">{age}</dd>
+
+                <dt class="col-sm-3">Sex</dt>
+                <dd class="col-sm-9">{sex}</dd>
+
+                <dt class="col-sm-3">Orientation</dt>
+                <dd class="col-sm-9">{orientation}</dd>
+
+                <dt class="col-sm-3">Diet</dt>
+                <dd class="col-sm-9">{diet}</dd>
+                
+                <dt class="col-sm-3">Education</dt>
+                <dd class="col-sm-9">{education}</dd>
+                
+                <dt class="col-sm-3">Income</dt>
+                <dd class="col-sm-9">{income}</dd>
+                
+                <dt class="col-sm-3">Ethnicity</dt>
+                <dd class="col-sm-9">{ethnicity}</dd>
+                
+                <dt class="col-sm-3">Pets</dt>
+                <dd class="col-sm-9">{pets}</dd>
+                
+                <dt class="col-sm-3">Location</dt>
+                <dd class="col-sm-9">{location}</dd>
+                
+                <dt class="col-sm-3">Language</dt>
+                <dd class="col-sm-9">{speaks}</dd>
+                
+                <dt class="col-sm-3">Smokes</dt>
+                <dd class="col-sm-9">{smokes}</dd>
+                
+                <dt class="col-sm-3">Drinks</dt>
+                <dd class="col-sm-9">{drinks}</dd>
+                
+                <dt class="col-sm-3">Drugs</dt>
+                <dd class="col-sm-9">{drugs}</dd>
+            </dl>
+            
+        </div >
         )
     }
 }

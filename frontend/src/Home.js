@@ -79,12 +79,21 @@ const Home = () => {
     if (user) {
         return (
             <div>
-                Hello {name}! You have been logged in! <br />
+
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Hello {name}!</strong> You have been logged in.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
 
                 <form onSubmit={submitHandler}>
-                    Search Users: <input type="text" value={searchUser} onChange={event => setUser(event.target.value)} />
-                    <input type="submit" value="Search" />
+                    <div class="input-group mb-3">
+                        <input type="text" value={searchUser} onChange={event => setUser(event.target.value)} class="form-control" placeholder="Search a user directly.." aria-label="Search text" aria-describedby="button-search"/>
+                        <button class="btn btn-outline-secondary" type="submit" id="button-search">Search</button>
+                    </div>
                 </form>
+
+                <h3 class="mb-30">Here are some recommendations for you.</h3>
+
                 <ul>
                     {users.filter((u) => {
                         let fr = user.friendList;
@@ -114,7 +123,7 @@ const Home = () => {
                         </li>
                     })}
                 </ul>
-                <input type="button" value="Logout" onClick={logoutHandler} />
+                <input class="btn btn-secondary" type="button" value="Logout" onClick={logoutHandler} />
             </div>
         )
     }
