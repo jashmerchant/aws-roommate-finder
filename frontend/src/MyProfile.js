@@ -1,10 +1,48 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getUser } from './service/AuthService'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { getUser, getUserByUsername } from './service/AuthService'
 
 const MyProfile = () => {
+    const [uname, setUname] = useSearchParams();
     const navigate = useNavigate();
-    const user = getUser();
+    var user; 
+    if(uname.get("uname") == undefined)
+    {
+        user = getUser();
+    }
+    else
+    {
+        const users = JSON.parse(sessionStorage.getItem("recommendations"));
+        var found = false;
+        for(var index in users)
+        {
+            var u = users[index];
+            if(u.username == uname.get("uname"))
+            {
+                user = u;
+                found = true;
+                break;
+            } 
+        }
+        if(!found)
+        {
+            // check searched users storage
+            const users = JSON.parse(sessionStorage.getItem("searchedusers"));
+            var found = false;
+            for(var index in users)
+            {
+                var u = users[index];
+                if(u.username == uname.get("uname"))
+                {
+                    user = u;
+                    found = true;
+                    break;
+                }    
+            }
+        }
+        // console.log("In get by username");
+        // user = getUserByUsername(uname.get("uname"));
+    }
     // console.log(user)
     const name = user !== 'undefined' && user ? user.name : '';
     const username = user !== 'undefined' && user ? user.username : '';
