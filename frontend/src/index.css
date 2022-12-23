@@ -13,8 +13,8 @@ code {
 }
 
 .header {
-  margin: 2em 2em 1em 2em; 
-  padding-bottom: 1em; 
+  margin: 2em 2em 1em 2em;
+  padding-bottom: 1em;
   border-bottom: 1px solid;
 }
 
@@ -23,7 +23,7 @@ code {
   font-size: 1.2em;
   text-decoration: none;
   color: #004aad;
-  
+
 }
 
 .header a:hover {
@@ -50,67 +50,95 @@ code {
 
 /* -------------------*/
 
-.w-80{
+.w-80 {
   width: 80%;
 }
-.w-50{
+
+.w-50 {
   width: 50%;
 }
-.w-30{
+
+.w-30 {
   width: 30%;
 }
-.mb-30{
+
+.mb-30 {
   margin-bottom: 30px;
 }
-.mb-5{
+
+.mb-5 {
   margin-bottom: 5em;
 }
-.my-flex{
+
+.my-flex {
   display: flex;
   margin-bottom: 5em;
 }
 
-.nav-container{
+.nav-container {
   display: block;
 }
-.nav-flex{
+
+.nav-flex {
   display: flex;
   justify-content: space-between;
 }
-.nav-items{
+
+.nav-items {
   align-items: center;
   display: flex;
 }
-.v-flex{
+
+.v-flex {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-.w-fit{
+
+.w-fit {
   width: fit-content;
 }
-.mybasis{
-  flex: 0 0 200px!important;
+
+.mybasis {
+  flex: 0 0 200px !important;
 }
-.myborder{
+
+.myborder {
   border-style: solid;
   border-width: 2px;
 }
-.mycontainer{
+
+.mycontainer {
   display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-.myitems{
+
+.myitems {
   flex: 0 0 47%;
   margin-bottom: 20px;
 }
-.ml-20{
+
+.ml-20 {
   margin-left: 20px;
 }
-.flex-center{
+
+.flex-center {
   display: flex;
-    align-items: center;
-    justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatbox {
+  height: 50vh;
+  overflow-y: scroll;
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.send {
+  display: flex;
+  justify-content: end;
 }

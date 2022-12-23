@@ -9,7 +9,7 @@ import { getUser, getToken, setUserSession, resetUserSession, getUsers } from '.
 import axios from 'axios';
 import NotFound from './NotFound';
 import Friends from './Friends';
-import { useNavigate } from 'react-router-dom';
+import Chat from './Chat';
 
 // const verifyTokenUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/verify"
 const verifyTokenUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/verify"
@@ -69,6 +69,7 @@ function App() {
             {/* <Route path="/premium-content" element={<PremiumContent />} /> */}
             <Route path="/my-profile" element={<MyProfile />} />
             <Route path="/friends" element={<Friends />} />
+            <Route path="/chat/:friend" element={<Chat />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
