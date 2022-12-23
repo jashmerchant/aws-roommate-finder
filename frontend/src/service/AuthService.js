@@ -9,7 +9,7 @@ module.exports = {
     },
 
     getUsers: function () {
-        const users = sessionStorage.getItem('scanResult');
+        const users = sessionStorage.getItem('recommendations');
         if (users === 'undefined' || !users) {
             return null;
         } else {
@@ -30,6 +30,6 @@ module.exports = {
     resetUserSession: function () {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('token');
-        sessionStorage.removeItem('scanResult');
+        sessionStorage.removeItem('recommendations');
     }
 }

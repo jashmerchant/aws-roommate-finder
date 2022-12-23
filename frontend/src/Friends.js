@@ -60,7 +60,7 @@ const Friends = () => {
                 return eachUser
             })
             sessionStorage.setItem('user', JSON.stringify(newUser))
-            sessionStorage.setItem('scanResult', JSON.stringify(newUsers))
+            sessionStorage.setItem('recommendations', JSON.stringify(newUsers))
             setUser(newUser)
             setUsers(newUsers)
             alert('Request Accepted');
@@ -103,7 +103,7 @@ const Friends = () => {
                 return eachUser
             })
             setUsers(newUsers)
-            sessionStorage.setItem('scanResult', JSON.stringify(newUsers))
+            sessionStorage.setItem('recommendations', JSON.stringify(newUsers))
             alert('Request Rejected');
         }).catch(error => {
             if (error.response.status === 401 || error.response.status === 403) {
