@@ -9,11 +9,13 @@ import { getUser, getToken, setUserSession, resetUserSession, getUsers } from '.
 import axios from 'axios';
 import NotFound from './NotFound';
 import Friends from './Friends';
+import { useNavigate } from 'react-router-dom';
 
 // const verifyTokenUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/verify"
 const verifyTokenUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/verify"
 
 function App() {
+
   const [isAuthenticating, setAuthenticating] = useState(true);
 
 
@@ -44,19 +46,20 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div className="header">
-        <div className="nav-container" >
-        <div className="nav-flex" >
-        <div ><Link to="/"><img src='favicon.png'/></Link></div>
-        <div className="nav-items" >
-        <Link to="/">Home</Link>
-            <Link to="/friends">Friends</Link>
-            <Link to="/my-profile">My Profile</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-            {/* <Link to="/premium-content">Premium Content</Link> */}
-        </div>
-        </div>
-        </div>
+          <div className="nav-container" >
+            <div className="nav-flex" >
+              <div ><Link to="/"><img src='favicon.png' /></Link></div>
+              <div className="nav-items" >
+                <Link to="/">Home</Link>
+                <Link to="/friends">Friends</Link>
+                <Link to="/my-profile">My Profile</Link>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+
+                {/* <Link to="/premium-content">Premium Content</Link> */}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="content">
           <Routes>

@@ -163,7 +163,7 @@ const Home = () => {
 
     const loadRecommendations = (event) => {
         const loadedRecommendations = JSON.parse(sessionStorage.getItem('recommendations'));
-        if (loadedRecommendations == undefined) {
+        if (loadedRecommendations == undefined && user) {
             console.log("In load recommendations \n");
             const loggedInUser = JSON.parse(sessionStorage.getItem('user'));
             console.log("Logged in user is \n");
@@ -203,11 +203,10 @@ const Home = () => {
         // if (searchUser.trim() === '') {
         //     return;
         // }
-        searchUsers = searchUsers + "?" + key + "=" + value;
-        console.log("Url for search is ", searchUsers);
-        axios.get(searchUsers).then((response) => {
+        console.log("Url for search is ", searchUsers + "?" + key + "=" + value);
+        axios.get(searchUsers + "?" + key + "=" + value).then((response) => {
             console.log("Search users response is\n");
-            console.log(response.data);
+            console.log(response);
             var arr = [];
             if (response.data != undefined) {
                 var loadedRecommendations = JSON.parse(sessionStorage.getItem('searchedusers'));
@@ -375,6 +374,8 @@ const Home = () => {
                 <input class="btn btn-secondary" type="button" value="Logout" onClick={logoutHandler} />
             </div>
         )
+    } else {
+        return <div>Loading...</div>
     }
 }
 
