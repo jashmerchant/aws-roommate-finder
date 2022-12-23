@@ -1,0 +1,31 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      # - echo "Installing dependencies..."
+      # - pip install requests -t lib
+  build:
+    commands:
+      - echo "Zipping deployment package..."
+      - ls
+      - cd backend/login-backend
+      - zip -r9 ../login-backend.zip .
+      - cd ..
+      - ls
+      - cd recommendations
+      - zip -r9 ../recommendations.zip .
+      - cd ..
+      - ls
+  post_build:
+    commands:
+      - echo "Updating lambda Function..."
+      - aws lambda update-function-code --function-name login-backend --zip-file fileb://login-backend.zip
+      - aws lambda update-function-code --function-name recommendations --zip-file fileb://recommendations.zip
+      - ls
+      - cd ..
+      - ls
+      - aws s3 rm s3://frontend-rf --recursive
+      - aws s3 cp frontend/build/ s3://frontend-rf --recursive
+      - echo "DONE!!" 
