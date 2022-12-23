@@ -3,35 +3,131 @@ import { useNavigate } from 'react-router-dom';
 import { getUser, resetUserSession, getUsers } from './service/AuthService';
 import axios from 'axios';
 
+const getRecommendations = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/home";
 // const editUserUrl = "https://lqjgcqa4lf.execute-api.us-east-1.amazonaws.com/prod/edituser"
 const editUserUrl = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/edituser"
-
+var searchUsers = "https://ao9v2ya7ci.execute-api.us-east-1.amazonaws.com/deploy/search";
 const Home = () => {
     const navigate = useNavigate();
     const user = getUser();
-    const [users, setUsers] = useState(getUsers())
+    //TODO: Commented this line
+    var [users, setUsers] = useState(getUsers())
     // console.log("Users:", users)
     const [searchUser, setUser] = useState('');
     const name = user !== 'undefined' && user ? user.name : '';
-
+   
+    
     useEffect(() => {
         if (!user) {
             navigate("/login")
         }
     }, [user])
-
+    React.useEffect(() => loadRecommendations(), [])
     const logoutHandler = () => {
         resetUserSession();
         navigate('/login');
     }
-
-    const submitHandler = (event) => {
-        event.preventDefault();
-        if (searchUser.trim() === '') {
-            return;
+    
+    const loadRecommendations = (event) => {
+        const loadedRecommendations = JSON.parse(sessionStorage.getItem('recommendations'));
+        if(loadedRecommendations == undefined)
+        {
+            console.log("In load recommendations \n");
+            const loggedInUser = JSON.parse(sessionStorage.getItem('user'));
+            console.log("Logged in user is \n");
+            console.log(loggedInUser);
+            var jsonData = {};
+            jsonData['age'] = parseInt(loggedInUser['age']);
+            jsonData['sex']= loggedInUser['sex'];
+            jsonData['orientation']= loggedInUser['orientation'];
+            jsonData['diet']= loggedInUser['diet'];
+            jsonData['drinks']= loggedInUser['drinks'];
+            jsonData['drugs']= loggedInUser['drugs'];
+            jsonData['ethnicity']= loggedInUser['ethnicity'];
+            jsonData['income']= loggedInUser['income'];
+            jsonData['location']= loggedInUser['location'];
+            jsonData['pets']= loggedInUser['pets'];
+            jsonData['smokes']= loggedInUser['smokes'];
+            jsonData['speaks']= loggedInUser['speaks'];
+            console.log("Json data is\n");
+            console.log(jsonData);
+            axios.post(getRecommendations, jsonData).then(response => {
+                console.log(response.data.recommendations);
+                sessionStorage.setItem("recommendations", JSON.stringify(response.data.recommendations));
+                setUsers(response.data.recommendations);           
+            });
+        }
+        else
+        {
+            setUsers(loadedRecommendations);  
         }
     }
 
+    const submitHandler = (event) => {
+        event.preventDefault();
+        var key = document.getElementById("key").value;
+        var value = document.getElementById("value").value;
+        // TODO: Make a call to the /search API
+
+        // if (searchUser.trim() === '') {
+        //     return;
+        // }
+        searchUsers = searchUsers + "?" + key + "=" + value;
+        console.log("Url for search is ", searchUsers);
+        axios.get(searchUsers).then((response)=>{
+            console.log("Search users response is\n");
+            console.log(response.data);
+            var arr = [];
+            if(response.data != undefined)
+            {
+                var loadedRecommendations = JSON.parse(sessionStorage.getItem('searchedusers'));
+                if(loadedRecommendations == null)
+                {
+                    loadedRecommendations = [];
+                }
+                loadedRecommendations.push(response.data);
+                sessionStorage.setItem("searchedusers", JSON.stringify(loadedRecommendations));
+                arr.push(response.data);
+                setUsers(arr);
+            }
+            else
+            {
+                alert("No users with the given username found");
+            } 
+        })
+        /* const loggedInUser = JSON.parse(sessionStorage.getItem('user'));
+        console.log("Logged in user is \n");
+        console.log(loggedInUser);
+        var jsonData = {};
+            jsonData['age'] = parseInt(loggedInUser['age']);
+            jsonData['sex']= loggedInUser['sex'];
+            jsonData['orientation']= loggedInUser['orientation'];
+            jsonData['diet']= loggedInUser['diet'];
+            jsonData['drinks']= loggedInUser['drinks'];
+            jsonData['drugs']= loggedInUser['drugs'];
+            jsonData['ethnicity']= loggedInUser['ethnicity'];
+            jsonData['income']= loggedInUser['income'];
+            jsonData['location']= loggedInUser['location'];
+            jsonData['pets']= loggedInUser['pets'];
+            jsonData['smokes']= loggedInUser['smokes'];
+            jsonData['speaks']= loggedInUser['speaks'];
+            console.log("Json data is\n");
+            console.log(jsonData);
+            axios.post(getRecommendations, jsonData).then(response => {
+                // TODO: Attach the response to the users that are displayed in the page
+                for(var index in response.data.recommendations)
+                {
+                    var recommendation = response.data.recommendations[index];
+                    console.log(recommendation['friendlist'])
+                    recommendation['friendlist'] = recommendation['friendlist'].replace(/'/g, '"');
+                    recommendation['friendlist'] = JSON.parse(recommendation['friendlist']);
+                }
+                console.log(response.data.recommendations);
+                setUsers(response.data.recommendations);
+                
+            }); */
+    }
+    let number = 0;
     const handleClick = (receiver) => {
         const requestBody = {
             "sender": user.username,
@@ -47,6 +143,8 @@ const Home = () => {
                     break
                 }
             }
+            console.log("In edit user");
+            console.log(response.data);
             setUsers(response.data)
             alert('Request sent succesfully');
         }).catch(error => {
@@ -59,19 +157,23 @@ const Home = () => {
     }
 
     const checkSent = (friends) => {
+        if(friends != undefined) {
         for (let i = 0; i < friends.length; i++) {
             if (friends[i].name === user.username && friends[i].status === "received") {
                 return true
             }
         }
+        }
         return false
     }
 
     const checkReceived = (friends) => {
+        if(friends != undefined) {
         for (let i = 0; i < friends.length; i++) {
             if (friends[i].name === user.username && friends[i].status === "sent") {
                 return true
             }
+        }
         }
         return false
     }
@@ -86,43 +188,62 @@ const Home = () => {
                 </div>
 
                 <form onSubmit={submitHandler}>
-                    <div class="input-group mb-3">
-                        <input type="text" value={searchUser} onChange={event => setUser(event.target.value)} class="form-control" placeholder="Search a user directly.." aria-label="Search text" aria-describedby="button-search"/>
-                        <button class="btn btn-outline-secondary" type="submit" id="button-search">Search</button>
-                    </div>
+                    <input type="text" name="By" id="key" />
+                    <input type="text" name="Value" id="value"/>
+                    <input type="submit" value="Search" />
                 </form>
 
                 <h3 class="mb-30">Here are some recommendations for you.</h3>
 
-                <ul>
+                
                     {users.filter((u) => {
-                        let fr = user.friendList;
+                        let fr = user.friendlist;
                         let found = false;
+                        console.log("Friendlist is \n");
+                        console.log(fr);
+                        if(fr != undefined) {
                         for (let i = 0; i < fr.length; i++) {
                             if (fr[i].name === u.username && (fr[i].request === "accepted" || fr[i].request === "rejected")) {
                                 found = true
                             }
+                        }
                         }
                         if (u.username === user.username) {
                             found = true
                         }
                         if (!found) return u
                     }).map((receiver) => {
-                        return <li key={receiver.username} style={{ display: "flex" }}>
-                            <div>
+                        number += 1;
+                        var link = "my-profile?uname=" + receiver.username;
+                        return <div>
+                            {/* <div>
                                 {receiver.username}
-                            </div>
-                            {checkSent(receiver.friendList) ?
-                                <button disabled>Sent</button> :
-                                checkReceived(receiver.friendList) ?
-                                    <button disabled>Received Request</button> :
-                                    <button onClick={() => handleClick(receiver.username)}>Add Friend</button>
+                            </div> */}
+                            <table style={{float:"right", width: "45%", margin: "20px"}}>
+                                <tr>
+                                    <td style={{padding:"5px"}}>{receiver.name} ( <a href={link}>{receiver.username}</a> )</td>
+                                </tr>
+                                <tr>
+                                    <td style={{padding:"5px"}}>{receiver.location}</td>
+                                </tr>
+                                <tr>
+                                    <td style={{padding:"5px"}}>{receiver.sex=="m"?"Male":"Female"}</td>
+                                </tr>
+                                <tr>
+                                <td>
+                                {checkSent(receiver.friendlist) ?
+                                    <button disabled>Sent</button> :
+                                    checkReceived(receiver.friendlist) ?
+                                        <button disabled>Received Request</button> :
+                                        <button onClick={() => handleClick(receiver.username)}>Add Friend</button>
+                                }
+                                </td>
+                            </tr>
+                            </table>
 
-                            }
-
-                        </li>
+                        </div>
                     })}
-                </ul>
+               
                 <input class="btn btn-secondary" type="button" value="Logout" onClick={logoutHandler} />
             </div>
         )
