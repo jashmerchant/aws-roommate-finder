@@ -36,6 +36,7 @@ const Login = (props) => {
         }
         axios.post(loginUrl, requestBody).then((response) => {
             console.log(response.data.scanResult);
+            if (response.data.user.friendList === "[]") response.data.user.friendlist = []
             setUserSession(response.data.user, response.data.token, response.data.scanResult);
             // props.history.push('/premium-content');
             navigate('/');
@@ -52,20 +53,20 @@ const Login = (props) => {
 
     return (
         <div>
-        <form class="w-80" onSubmit={submitHandler}>
-        <h3 class="mb-30">Login</h3>
+            <form class="w-80" onSubmit={submitHandler}>
+                <h3 class="mb-30">Login</h3>
 
-            <div class="w-50 mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input placeholder="Enter your username" id="username" type="text" class="form-control" required value={username} onChange={event => setUsername(event.target.value)} /> <br />
-            <label for="password" class="form-label">Password</label>
-            <input placeholder="Enter your password" id="password" type="password" class="form-control" required value={password} onChange={event => setPassword(event.target.value)} /> <br />
-            <input class=" btn btn-primary" type="submit" value="Login" />
-            </div>
-        </form>
+                <div class="w-50 mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input placeholder="Enter your username" id="username" type="text" class="form-control" required value={username} onChange={event => setUsername(event.target.value)} /> <br />
+                    <label for="password" class="form-label">Password</label>
+                    <input placeholder="Enter your password" id="password" type="password" class="form-control" required value={password} onChange={event => setPassword(event.target.value)} /> <br />
+                    <input class=" btn btn-primary" type="submit" value="Login" />
+                </div>
+            </form>
 
-          {errorMessage && <p class="message"> {errorMessage} </p> }
-    </div>
+            {errorMessage && <p class="message"> {errorMessage} </p>}
+        </div>
     )
 }
 
