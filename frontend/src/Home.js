@@ -307,7 +307,7 @@ const Home = () => {
 
     if (user && users) {
         return (
-            <div>
+            <div class="mb-5">
 
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Hello {name}!</strong> You have been logged in.
@@ -315,14 +315,21 @@ const Home = () => {
                 </div>
 
                 <form onSubmit={submitHandler}>
-                    <input type="text" name="By" id="key" />
-                    <input type="text" name="Value" id="value" />
-                    <input type="submit" value="Search" />
-                </form>
+                     <div class="input-group mb-3">
+                        <label class="input-group-text" for="key">Search By</label>
+                        <select class="form-select mybasis" id="key" name="By">
+                            <option value="username" selected>Username</option>
+                            {/* <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option> */}
+                        </select>
+                        <input type="text" name="Value" id="value" class="form-control" placeholder="Search.." />
+                        <button class="btn btn-outline-secondary"  value="Search" type="submit" id="button-search">Search</button>
+                     </div>
+                 </form>
 
                 <h3 class="mb-30">Here are some recommendations for you.</h3>
-
-
+                <div class="mycontainer">
                 {users.filter((u) => {
                     let fr = user.friendlist;
                     let found = false;
@@ -342,40 +349,33 @@ const Home = () => {
                 }).map((receiver) => {
                     number += 1;
                     var link = "my-profile?uname=" + receiver.username;
-                    return <div>
-                        {/* <div>
-                                {receiver.username}
-                            </div> */}
-                        <table style={{ float: "right", width: "45%", margin: "20px" }}>
-                            <tr>
-                                <td style={{ padding: "5px" }}>{receiver.name} ( <a href={link}>{receiver.username}</a> )</td>
-                            </tr>
-                            <tr>
-                                <td style={{ padding: "5px" }}>{receiver.location}</td>
-                            </tr>
-                            <tr>
-                                <td style={{ padding: "5px" }}>{receiver.sex == "m" ? "Male" : "Female"}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    {checkSent(receiver.friendlist) ?
-                                        <button disabled>Sent</button> :
-                                        checkReceived(receiver.friendlist) ?
-                                            <button disabled>Received Request</button> :
-                                            <button onClick={() => handleClick(receiver.username)}>Add Friend</button>
-                                    }
-                                </td>
-                            </tr>
-                        </table>
+                    return <div class="col-5 myitems">
+                        {/* <div class="col-sm-6"> */}
+                            <div class="card ">
+                            <div class="card-body">
+                                <h5 class="card-title">{receiver.name} ( <a href={link}>{receiver.username}</a> )</h5>
+                                <p class="card-text">{receiver.location}<br/>{receiver.sex == "m" ? "Male" : "Female"}</p>
 
+                                {checkSent(receiver.friendlist) ?
+                                            <button class="btn btn-outline-primary" disabled>Sent</button> :
+                                            checkReceived(receiver.friendlist) ?
+                                                <button class="btn btn-outline-primary" disabled>Received Request</button> :
+                                                <button class="btn btn-outline-primary" onClick={() => handleClick(receiver.username)}>Add Friend</button>
+                                        }
+
+                            </div>
+                            </div>
                     </div>
                 })}
-
+                </div>
                 <input class="btn btn-secondary" type="button" value="Logout" onClick={logoutHandler} />
             </div>
         )
     } else {
-        return <div>Loading...</div>
+        return <div class="d-flex align-items-center">
+        <strong>Loading your Recommendations...</strong>
+        <div class="spinner-border ml-20" role="status" aria-hidden="true"></div>
+      </div>
     }
 }
 

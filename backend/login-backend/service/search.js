@@ -9,15 +9,14 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 const userTable = 'users';
 
 async function search(queryParameters) {
-    
+
     var queryString = queryParameters;
     // TODO: Load the search parameters string and split by & and =
     var key = "";
     var value = "";
-    for(var k in queryString)
-    {
-       key = k;
-       value = queryParameters[k];
+    for (var k in queryString) {
+        key = k;
+        value = queryParameters[k];
     }
     console.log("Received params are\n");
     console.log(key);
@@ -30,6 +29,8 @@ async function search(queryParameters) {
         }
     }
     return await dynamodb.get(params).promise().then(res => {
+        console.log("Item received from dynamo is");
+        console.log(res.Item);
         return util.buildResponse(200, res.Item);
     }, error => {
         console.error('There is an error', error);

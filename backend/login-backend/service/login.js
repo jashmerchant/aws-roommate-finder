@@ -53,21 +53,21 @@ async function login(user) {
         pets: dynamoUser.pets,
         smokes: dynamoUser.smokes,
         speaks: dynamoUser.speaks,
-        friendList: dynamoUser.friendList
+        friendlist: dynamoUser.friendlist
     }
 
     const token = auth.generateToken(userInfo)
-    
+
     const params = {
         TableName: userTable
     };
 
     var scanResults = [];
-    
+
     var items = undefined;
-    
+
     // Fetching all users from db and storing it in scanResults array
-    
+
     // do {
     //     items = await dynamodb.scan(params).promise();
     //     items.Items.forEach((item) => scanResults.push(item));

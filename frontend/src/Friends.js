@@ -117,25 +117,27 @@ const Friends = () => {
     if (user)
         return (
             <div>
-                <div>My Connections</div>
-                <ul>
+                <h3 class="mb-30">My Connections</h3>
+                <ul class="mb-30 list-group list-group-flush">
                     {connections?.map((fr) => {
-                        return <li key={fr.username}>{fr.name}</li>
+                        return <li class="list-group-item" key={fr.username}>{fr.name}</li>
                     })}
                 </ul>
-                <div>Sent</div>
-                <ul>
+                <h5 >Sent</h5>
+                <ul class=" mb-30 list-group list-group-flush">
                     {sent?.map((fr) => {
-                        return <li key={fr.username}>{fr.name}</li>
+                        return <li class="list-group-item" key={fr.username}>{fr.name}</li>
                     })}
                 </ul>
-                <div>Received</div>
-                <ul>
+                <h5 >Received</h5>
+                <ul class="mb-30 list-group list-group-flush">
                     {received?.map((fr) => {
-                        return <li key={fr.username} style={{ display: "flex" }}>
+                        return <li class="list-group-item flex-center" key={fr.username} style={{ display: "flex" }}>
                             <div>{fr.name}</div>
-                            <button onClick={() => handleAccept(fr)}>Accept</button>
-                            <button onClick={() => handleReject(fr)}>Reject</button>
+                            <div>
+                            <button class="btn btn-outline-primary" onClick={() => handleAccept(fr)}>Accept</button>
+                            <button class="btn btn-outline-primary ml-20" onClick={() => handleReject(fr)}>Reject</button>
+                            </div>
                         </li>
                     })}
                 </ul>

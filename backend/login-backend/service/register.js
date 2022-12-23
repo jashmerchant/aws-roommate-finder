@@ -58,7 +58,7 @@ async function register(userInfo) {
         pets: pets,
         smokes: smokes,
         speaks: speaks,
-        friendList: []
+        friendlist: []
     }
 
     const saveUserResponse = await saveUser(user);

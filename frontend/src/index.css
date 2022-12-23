@@ -62,6 +62,9 @@ code {
 .mb-30{
   margin-bottom: 30px;
 }
+.mb-5{
+  margin-bottom: 5em;
+}
 .my-flex{
   display: flex;
   margin-bottom: 5em;
@@ -86,4 +89,28 @@ code {
 }
 .w-fit{
   width: fit-content;
+}
+.mybasis{
+  flex: 0 0 200px!important;
+}
+.myborder{
+  border-style: solid;
+  border-width: 2px;
+}
+.mycontainer{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.myitems{
+  flex: 0 0 47%;
+  margin-bottom: 20px;
+}
+.ml-20{
+  margin-left: 20px;
+}
+.flex-center{
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

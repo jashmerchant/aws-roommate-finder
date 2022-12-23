@@ -15,14 +15,27 @@ async function edituser(userInfo) {
 
     const receiver = await getUser(userInfo.receiver.toLowerCase().trim());
     const sender = await getUser(userInfo.sender.toLowerCase().trim());
-  
-        // If Accept or Reject button is clicked
-        receiver.friendList = receiver.friendList.filter((friend)=>friend.name !== sender.username)
-        sender.friendList = sender.friendList.filter((friend)=>friend.name !== receiver.username)
+    if (receiver['friendlist'] === '[]') {
+        receiver['friendlist'] = []
+    }
+    if (sender['friendlist'] === '[]') {
+        sender['friendlist'] = []
+    }
+    console.log("Receiver is ", receiver);
+    console.log("Sender is ", sender);
+    // receiver['friendlist'] = receiver['friendlist'].replace(/'/g, '"');
+    // receiver['friendlist'] = JSON.parse(receiver['friendlist']);
+    // sender['friendlist'] = sender['friendlist'].replace(/'/g, '"');
+    // sender['friendlist'] = JSON.parse(sender['friendlist']);
 
-        receiver.friendList.push({ "name": sender.username, "request": userInfo.request, "status": "received" })
-        sender.friendList.push({ "name": receiver.username, "request": userInfo.request, "status": "sent" })
-    
+    // If Accept or Reject button is clicked
+    receiver.friendlist = receiver.friendlist.filter((friend) => friend.username !== sender.username)
+    sender.friendlist = sender.friendlist.filter((friend) => friend.username !== receiver.username)
+
+    // TODO: Send an email to the receiver that sender has sent a notification
+    receiver.friendlist.push({ "username": sender.username, "name": sender.name, "request": userInfo.request, "status": "received" })
+    sender.friendlist.push({ "username": receiver.username, "name": receiver.name, "request": userInfo.request, "status": "sent" })
+
     // const saveSenderResponse = await saveUser(sender, receiver, userInfo.isAccepted, "sent");
     // const saveReceiverResponse = await saveUser(receiver, sender, userInfo.isAccepted, "received");
     const saveReceiverResponse = await saveUser(receiver);
@@ -36,18 +49,20 @@ async function edituser(userInfo) {
         TableName: userTable
     };
 
-    var scanResults = [];
-    
-    var items = undefined;
-    
-    do {
-        items = await dynamodb.scan(params).promise();
-        items.Items.forEach((item) => scanResults.push(item));
-        params.ExclusiveStartKey = items.LastEvaluatedKey;
-    } while (typeof items.LastEvaluatedKey !== "undefined");
-    
+    // var scanResults = [];
 
-    return util.buildResponse(200, scanResults);
+    // var items = undefined;
+
+    // do {
+    //     items = await dynamodb.scan(params).promise();
+    //     console.log("Items from db are\n");
+    //     console.log(items.Items);
+    //     items.Items.forEach((item) => scanResults.push(item));
+    //     params.ExclusiveStartKey = items.LastEvaluatedKey;
+    // } while (typeof items.LastEvaluatedKey !== "undefined");
+
+
+    return util.buildResponse(200, sender);
 }
 
 async function getUser(username) {

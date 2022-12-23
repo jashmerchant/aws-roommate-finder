@@ -6,7 +6,7 @@ const homePathService = require('./service/home');
 const searchUserService = require('./service/search');
 const util = require('./utils/util');
 
-const healthPath = '/health'; 
+const healthPath = '/health';
 const registerPath = '/register';
 const loginPath = '/login';
 const verifyPath = '/verify';
@@ -22,15 +22,15 @@ exports.handler = async (event) => {
 
             response = searchUserService.search(event.queryStringParameters);
             break;
-            
+
         case event.httpMethod === 'POST' && event.path === homePath:
             response = homePathService.home(event.body);
             break;
-            
+
         case event.httpMethod === 'GET' && event.path === healthPath:
             response = util.buildResponse(200);
             break;
-        
+
         case event.httpMethod === 'POST' && event.path === edituserPath:
             const edituserBody = JSON.parse(event.body);
             response = await edituserService.edituser(edituserBody);
