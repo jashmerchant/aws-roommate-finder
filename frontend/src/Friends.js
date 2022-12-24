@@ -120,10 +120,17 @@ const Friends = () => {
         return (
             <div>
                 <h3 class="mb-30">My Connections</h3>
-                <ul class="mb-30 list-group list-group-flush">
+                {/* <ul class="mb-30 list-group list-group-flush">
                     {connections?.map((fr) => {
                         return <li class="list-group-item" key={fr.username}>
-                            {fr.name}<button onClick={() => handleChat(fr.username)}>Chat</button>
+                            {fr.name}<button class="btn btn-outline-primary" onClick={() => handleChat(fr.username)}>Chat</button>
+                        </li>
+                    })}
+                </ul> */}
+                <ul class="mb-30 list-group list-group-flush">
+                    {connections?.map((fr) => {
+                        return <li class="list-group-item flex-center" key={fr.username}>
+                            <div>{fr.name}</div><button class="btn btn-outline-primary" onClick={() => handleChat(fr.username)}>Chat</button>
                         </li>
                     })}
                 </ul>
